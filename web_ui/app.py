@@ -1,3 +1,4 @@
+import requests
 import streamlit as st
 
 st.set_page_config(page_title="Text-to-Speech App", layout="centered")
@@ -25,6 +26,17 @@ if st.button("Submit"):
         st.warning("Please enter some text before submitting.")
     else:
         st.info("Sending text to backend for processing...")
-        # Placeholder for future API integration
-        # audio_response = requests.post("http://api-gateway/tts", json={"text": user_input})
-        st.success("Processing complete. (This is a placeholder.)")
+
+        try:
+            response = requests.post(
+                "http://localhost:8000/tts", json={"text": user_input}
+            )
+            if response.status_code == 200:
+                data = response.json()
+                st.success("Processing complete.")
+                st.write(f"Cleaned Text: '{data['cleaned_text']}'")
+                st.audio(data["audio_url"])
+            else:
+                st.error(f"API returned error: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to connect to backend: {e}")
