@@ -1,0 +1,34 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.11.10
+  hooks:
+    # Run the linter.
+    - id: ruff-check
+      exclude: ^notebooks/
+    # Run the formatter.
+    - id: ruff-format
+      exclude: ^notebooks/
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+    - id: check-yaml
+      exclude: ^notebooks/
+    - id: end-of-file-fixer
+      exclude: ^notebooks/
+    - id: trailing-whitespace
+      exclude: ^notebooks/
+
+- repo: https://github.com/timothycrosley/isort
+  rev: 5.12.0
+  hooks:
+    - id: isort
+      exclude: ^notebooks/
+
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.8.1
+  hooks:
+    - id: nbstripout
+      files: ^notebooks/.*\.ipynb$
+      stages: [pre-commit]

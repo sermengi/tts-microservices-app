@@ -6,7 +6,7 @@ This project is a simple text-to-speech (TTS) application built using a microser
 
 The application is composed of three distinct microservices:
 
-* **Frontend Service:** A simple web interface built with Streamlit that allows users to input text. 
+* **Frontend Service:** A simple web interface built with Streamlit that allows users to input text.
 * **API Gateway for Routing**: Routes requests to internal services
 * **Text Preprocessing Service**: Cleans and normalizes user input text
 * **TTS Model Inference Service**: Converts user input text to speech
