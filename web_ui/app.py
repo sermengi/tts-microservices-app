@@ -1,5 +1,10 @@
+import os
+
 import requests
 import streamlit as st
+
+# Read API URL from environment variable (fallback to localhost)
+API_GATEWAY_URL = os.getenv("API_GATEWAY_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Text-to-Speech App", layout="centered")
 
@@ -29,7 +34,7 @@ if st.button("Submit"):
 
         try:
             response = requests.post(
-                "http://localhost:8000/tts", json={"text": user_input}
+                f"{API_GATEWAY_URL}/tts", json={"text": user_input}
             )
             if response.status_code == 200:
                 data = response.json()

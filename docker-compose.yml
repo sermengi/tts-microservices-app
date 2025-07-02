@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api-gateway
+    ports:
+    - "8000:8000"
+    networks:
+      - tts-network
+
+  web-ui:
+    build:
+      context: ./web_ui
+    container_name: web_ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api-gateway
+    networks:
+      - tts-network
+
+networks:
+  tts-network:
+    driver: bridge
