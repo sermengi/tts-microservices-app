@@ -1,5 +1,5 @@
+from app.preprocess import preprocess_text
 from fastapi import FastAPI, HTTPException
-from preprocess import preprocess_text
 from pydantic import BaseModel
 
 app = FastAPI(

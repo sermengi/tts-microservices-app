@@ -1,5 +1,7 @@
 FROM python:3.12-slim
 
+ENV PREPROCESS_URL=http://preprocessing-service:8001/preprocess
+
 WORKDIR /app
 
 COPY requirements.txt .

@@ -18,7 +18,7 @@ build-api-gateway:
 run-api-gateway:
 	cd api-gateway && \
 	source .venv/bin/activate && \
-	uvicorn main:app --reload
+	uvicorn main:app --reload --port 8000
 
 # Build Preprocessing Service
 build-preprocessing:
@@ -28,4 +28,7 @@ build-preprocessing:
 run-preprocessing:
 	cd preprocessing-service && \
 	source .venv/bin/activate && \
-	cd app && uvicorn main:app --reload
+	cd app && uvicorn main:app --reload --port 8001
+
+run-tts-microservice-app:
+	docker-compose up --build

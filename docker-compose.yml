@@ -21,6 +21,17 @@ services:
     networks:
       - tts-network
 
+  preprocessing-service:
+    build:
+      context: ./preprocessing-service
+    container_name: preprocessing-service
+    ports:
+      - "8001:8000"
+    networks:
+      - tts-network
+    depends_on:
+      - api-gateway
+
 networks:
   tts-network:
     driver: bridge

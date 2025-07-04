@@ -22,7 +22,7 @@ async def forward_to_preprocessing(input: TextInput):
     original_text = input.text
     try:
         preprocessed_text = requests.post(
-            "http://localhost:8001/preprocess", json={"text": original_text}, timeout=5
+            f"{PREPROCESS_URL}", json={"text": original_text}, timeout=5
         )
         preprocessed_text.raise_for_status()
         return preprocessed_text.json()
