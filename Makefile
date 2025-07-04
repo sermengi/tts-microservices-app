@@ -1,6 +1,16 @@
 SHELL := /bin/bash
 
-# Build Docker images
+# Build web UI
+build-web-ui:
+	docker build -t sermengi/web-ui:latest ./web_ui
+
+# Run the Web UI locally
+run-web-ui:
+	cd web_ui && \
+	source .venv/bin/activate && \
+	streamlit run app.py
+
+# Build API Gateway
 build-api-gateway:
 	docker build -t sermengi/api-gateway:latest ./api-gateway
 
@@ -10,11 +20,12 @@ run-api-gateway:
 	source .venv/bin/activate && \
 	uvicorn main:app --reload
 
-build-web-ui:
-	docker build -t sermengi/web-ui:latest ./web_ui
+# Build Preprocessing Service
+build-preprocessing:
+	docker build -t sermengi/preprocessing:latest ./preprocessing-service
 
-# Run the Web UI locally
-run-web-ui:
-	cd web_ui && \
+# Run the API Gateway locally
+run-preprocessing:
+	cd preprocessing-service && \
 	source .venv/bin/activate && \
-	streamlit run app.py
+	cd app && uvicorn main:app --reload

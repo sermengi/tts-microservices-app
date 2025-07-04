@@ -34,7 +34,7 @@ if st.button("Submit"):
 
         try:
             response = requests.post(
-                f"{API_GATEWAY_URL}/tts", json={"text": user_input}
+                f"{API_GATEWAY_URL}/preprocess", json={"text": user_input}
             )
             if response.status_code == 200:
                 data = response.json()
