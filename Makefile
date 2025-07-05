@@ -34,9 +34,22 @@ build-preprocessing:
 run-preprocessing:
 	cd preprocessing-service && \
 	source .venv/bin/activate && \
-	cd app && uvicorn main:app --reload --port 8001
+	uvicorn app.main:app --reload --port 8001
 
-######## TTS Service App ########
+
+######## TTS Service ########
+
+# Build Preprocessing Service
+build-tts:
+	docker build -t sermengi/tts:latest ./tts-service
+
+# Run the Preprocessing Service
+run-tts:
+	cd tts-service && \
+	source .venv/bin/activate && \
+	uvicorn app.main:app --reload --port 8002
+
+######## TTS App ########
 
 run-tts-microservice-app:
 	docker-compose up --build
