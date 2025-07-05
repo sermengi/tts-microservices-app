@@ -1,7 +1,7 @@
+from app.tts_engine import synthesize_speech
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from tts_engine import synthesize_speech
 
 app = FastAPI(title="TTS Service")
 
