@@ -34,13 +34,11 @@ if st.button("Submit"):
 
         try:
             response = requests.post(
-                f"{API_GATEWAY_URL}/preprocess", json={"text": user_input}
+                f"{API_GATEWAY_URL}/synthesize", json={"text": user_input}, timeout=30
             )
             if response.status_code == 200:
-                data = response.json()
                 st.success("Processing complete.")
-                st.write(f"Cleaned Text: '{data['cleaned_text']}'")
-                st.audio(data["audio_url"])
+                st.audio(response.content, format="audio/wav")
             else:
                 st.error(f"API returned error: {response.status_code}")
         except requests.exceptions.RequestException as e:
