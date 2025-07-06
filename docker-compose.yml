@@ -7,8 +7,14 @@ services:
     container_name: api-gateway
     ports:
     - "8000:8000"
+    environment:
+      - PREPROCESS_URL=http://preprocessing-service:8000/preprocess
+      - TTS_URL=http://tts-service:8000/synthesize
     networks:
       - tts-network
+    depends_on:
+      - preprocessing-service
+      - tts-service
 
   web-ui:
     build:
@@ -16,10 +22,12 @@ services:
     container_name: web_ui
     ports:
       - "8501:8501"
-    depends_on:
-      - api-gateway
+    environment:
+      - API_GATEWAY_URL=http://api-gateway:8000
     networks:
       - tts-network
+    depends_on:
+      - api-gateway
 
   preprocessing-service:
     build:
@@ -29,8 +37,15 @@ services:
       - "8001:8000"
     networks:
       - tts-network
-    depends_on:
-      - api-gateway
+
+  tts-service:
+    build:
+      context: ./tts-service
+    container_name: tts-service
+    ports:
+      - "8002:8000"
+    networks:
+      - tts-network
 
 networks:
   tts-network:
